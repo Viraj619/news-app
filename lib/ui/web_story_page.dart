@@ -1,29 +1,36 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/doman/coustoms_page.dart';
+import 'package:news_app/ui/bloc/life%20style%20bloc/life_bloc.dart';
+import 'package:news_app/ui/bloc/life%20style%20bloc/life_style_events.dart';
+import 'package:news_app/ui/bloc/life%20style%20bloc/life_style_states.dart';
+import 'package:news_app/ui/trend_detail_page.dart';
 
 class WebStoryPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    context.read<LifeBloc>().add(GetLifeStyle(query:"life style news"));
     return Scaffold(
-      body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: ListView.builder(itemBuilder: (_,index){
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Card(
-              child: CoustomContainer(width: 250.0, height:400.0, radius:10.0,img: NetworkImage("https://images.pexels.com/photos/670720/pexels-photo-670720.jpeg?auto=compress&cs=tinysrgb&w=600"),child: Stack(
-                children: [
-                  Align(
-                      alignment: Alignment.bottomCenter,
-                      child: CoustomContainerSuch(width: 400.0, height:100.0,color: Colors.orange.withOpacity(0.1),child: Text("fvdgjhgjhbhjvkkjhgbdjhbjhgjhgdgjhfbv"),)),
-                ],
-              ),),
-            ),
-          );
-
-        }),
-      ),
+        body:BlocBuilder<LifeBloc,LifeStyleStates>(builder: (_,state){
+          if(state is LoadingLifeState){
+            return Center(child: CircularProgressIndicator(),);
+          }
+          if(state is LoadedLifeState){
+            var mData=state.LarticlesDataModel;
+            return ListView.builder(
+                itemCount: mData.articles!.length,
+                itemBuilder: (_,index){
+                  return InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TrendDetailPage(ArticlesDataModel: mData.articles![index]),));
+                      },
+                      child: RowCoustomer(child1: Text(mData.articles![index].title??Container().toString()), child2:Image.network(mData.articles![index].urlToImage??"No Image")));
+                });
+          }
+          return Container();
+        },)
     );
   }
 }

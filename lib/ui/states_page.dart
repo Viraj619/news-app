@@ -1,57 +1,37 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/doman/coustoms_page.dart';
+import 'package:news_app/ui/bloc/search_bloc/search_events.dart';
+import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_Bloc.dart';
+import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_event.dart';
+import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_state.dart';
+import 'package:news_app/ui/trend_detail_page.dart';
 
 class StatesPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    context.read<UttarBloc>().add(GetUttarNews(quiry:"Uttar Pradesh"));
     return Scaffold(
-      body: Column(children: [
-        /// states names
-        // SizedBox(
-        //   height: 50,
-        //   child: ListView.builder(
-        //     scrollDirection: Axis.horizontal,
-        //       itemCount: 10,
-        //       itemBuilder: (_,index){
-        //     return Padding(
-        //       padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal:1),
-        //       child: ElevatedButton(onPressed: (){},style:ElevatedButton.styleFrom(backgroundColor: Colors.red,), child: Text("Delhi")),
-        //     );
-        //   }),
-        // ),
-        /// news
-        Expanded(
-          child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (_,index){
-            return  Column(
-              children: [
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-                SizedBox(height: 5,),
-                RowCoustomer(img: AssetImage("asset/images/title_img.jpg"), child:Text("fbjhbvxvchvvdvjhbjhchgfdvjbhjghvgfhvjbdms vnzvhcgzbxjvb")),
-          
-          
-              ],
-            );
-          }),
-        )
-      ],),
+        body:BlocBuilder<UttarBloc,UttarState>(builder: (_,state){
+          if(state is LoadingUttarState){
+            return Center(child: CircularProgressIndicator(),);
+          }
+          if(state is LoadedUttarState){
+            var mData=state.UarticalDataModel;
+            return ListView.builder(
+                itemCount: mData.articles!.length,
+                itemBuilder: (_,index){
+                  return InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => TrendDetailPage(ArticlesDataModel: mData.articles![index]),));
+                      },
+                      child: RowCoustomer(child1: Text(mData.articles![index].title??Container().toString()), child2:Image.network(mData.articles![index].urlToImage??"No Image")));
+                });
+          }
+          return Container();
+        },)
     );
   }
 }

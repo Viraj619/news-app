@@ -14,7 +14,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
   List<Widget>listNavigat=[
     TabBarPage(),
     Center(child: Text("reels"),),
-     VideoPage(),
     Center(child: Text("Live"),),
     Center(child: Text("PodCast"),),
   ];
@@ -28,7 +27,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
         destinations: [
           NavigationDestination(icon:Icon(Icons.home_outlined), label:"Home",selectedIcon:(Icon(Icons.home_outlined,color: Colors.red,)),),
           NavigationDestination(icon:Icon(Icons.video_library_outlined), label:"News Reel",selectedIcon:(Icon(Icons.video_library_outlined,color: Colors.red,))),
-          NavigationDestination(icon:Icon(Icons.ondemand_video_outlined), label:"Videos",selectedIcon:(Icon(Icons.ondemand_video_outlined,color: Colors.red,))),
           NavigationDestination(icon:Icon(Icons.live_tv_outlined), label:"Live",selectedIcon:(Icon(Icons.live_tv_outlined,color: Colors.red,))),
           NavigationDestination(icon:Icon(Icons.mic), label:"podCast",selectedIcon:(Icon(Icons.mic,color: Colors.red,))),
         ],

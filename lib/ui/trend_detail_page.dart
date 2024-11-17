@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/doman/appconstance.dart';
 import 'package:news_app/doman/coustoms_page.dart';
+import 'package:news_app/ui/bloc/default_news/news_bloc.dart';
+import 'package:news_app/ui/bloc/default_news/news_states.dart';
 
 class TrendDetailPage extends StatelessWidget{
-  int dIndex;
-  TrendDetailPage({required this.dIndex});
+  final ArticlesDataModel;
+  TrendDetailPage({required this.ArticlesDataModel});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,26 +25,18 @@ class TrendDetailPage extends StatelessWidget{
         width: double.infinity,
         height: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Column(children: [
-            Expanded(
-              child: ListView.builder(
-                  itemCount: AppConstance.listInter.length,
-                  itemBuilder: (_,index){
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Column(
-                    children: [
-                      CoustomContainerAs(width: 380.0, height: 200.0, radius: 0.0,img: AssetImage(AppConstance.listInter[index]['img']),),
-                      SizedBox(height: 10,),
-                      SizedBox(width: 380,height: 200,child: Text(AppConstance.listInter[index]['desc'],),)
-                    ],
-                  ),
-                );
-              }),
-            )
-          ],),
-        ),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(width: 380,child: Text(ArticlesDataModel.title??Container().toString()),),
+              SizedBox(height: 10,),
+              Center(child: CoustomContainer( radius: 0.0,img: NetworkImage(ArticlesDataModel.urlToImage??"No Image"),)),
+              SizedBox(height: 10,),
+              SizedBox(width: 380,child: Text(ArticlesDataModel.description??Container().toString()),)
+            ],
+          ),
+        )
       ),
     );
   }

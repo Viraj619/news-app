@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/doman/api_helper.dart';
+import 'package:news_app/ui/bloc/default_news/news_bloc.dart';
+import 'package:news_app/ui/bloc/life%20style%20bloc/life_bloc.dart';
+import 'package:news_app/ui/bloc/search_bloc/search_bloc.dart';
+import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_Bloc.dart';
+import 'package:news_app/ui/bloc/super_hit_bloc/super_hit_bloc.dart';
 import 'package:news_app/ui/bottom_navigation.dart';
-import 'package:news_app/ui/election_page.dart';
-import 'package:news_app/ui/home_page1.dart';
-import 'package:news_app/ui/states_page.dart';
-import 'package:news_app/ui/tabbar_page_.dart';
+import 'package:news_app/ui/navigation_provider.dart';
 import 'package:news_app/ui/theme_provider.dart';
-import 'package:news_app/ui/trend_detail_page.dart';
-import 'package:news_app/ui/utility_page.dart';
-import 'package:news_app/ui/web_story_page.dart';
 import 'package:provider/provider.dart';
 
 void main(){
-  runApp(ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: MainApp()));
+  runApp(MultiProvider(providers:[
+    ChangeNotifierProvider(create: (context) => ThemeProvider(),),
+    BlocProvider(create: (context) => NewsBloc(apiHelper: ApiHelper()),),
+    BlocProvider(create: (context) => SearchBloc(apiHelper: ApiHelper()),),
+    BlocProvider(create: (context) => SuperHitBloc(apiHelper: ApiHelper()),),
+    BlocProvider(create: (context) => UttarBloc(apiHelper: ApiHelper()),),
+    BlocProvider(create: (context) => LifeBloc(apiHelper: ApiHelper()),),
+    ChangeNotifierProvider(create: (context) =>NavigationProvider() ,)
+  ],child: MainApp()));
 }
 
 class MainApp extends StatelessWidget{
