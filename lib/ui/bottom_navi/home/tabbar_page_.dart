@@ -1,16 +1,17 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:news_app/doman/coustoms_page.dart';
-import 'package:news_app/ui/bottom_navigation.dart';
-import 'package:news_app/ui/intertentment_page.dart';
-import 'package:news_app/ui/home_page1.dart';
-import 'package:news_app/ui/navigation_provider.dart';
-import 'package:news_app/ui/search_page.dart';
-import 'package:news_app/ui/setting_page.dart';
-import 'package:news_app/ui/states_page.dart';
-import 'package:news_app/ui/theme_provider.dart';
-import 'package:news_app/ui/utility_page.dart';
-import 'package:news_app/ui/video_page.dart';
-import 'package:news_app/ui/web_story_page.dart';
+import 'package:news_app/ui/bottom_navi/home/home_page1.dart';
+import 'package:news_app/ui/bottom_navi/home/intertentment_page.dart';
+import 'package:news_app/ui/bottom_navi/home/navigation_provider.dart';
+import 'package:news_app/ui/bottom_navi/home/search_page.dart';
+import 'package:news_app/ui/bottom_navi/home/setting_page.dart';
+import 'package:news_app/ui/bottom_navi/home/states_page.dart';
+import 'package:news_app/ui/bottom_navi/home/theme_provider.dart';
+import 'package:news_app/ui/bottom_navi/home/utility_page.dart';
+import 'package:news_app/ui/bottom_navi/home/video_page.dart';
+import 'package:news_app/ui/bottom_navi/home/web_story_page.dart';
 import 'package:provider/provider.dart';
 
 class TabBarPage extends StatefulWidget{
@@ -37,19 +38,26 @@ class _TabBareState extends State<TabBarPage> with SingleTickerProviderStateMixi
     return Consumer<NavigationProvider>(builder:(_,provider,child){
       tabController!.index=provider.getPage();
       return Scaffold(
-        appBar:AppBar(
-          title:Text("News App"),
-          actions: [
-            Image(image:NetworkImage("https://cdn-icons-png.flaticon.com/128/2331/2331852.png"),height: 30,width: 30, ),
-            Image(image: NetworkImage("https://cdn-icons-png.flaticon.com/128/2150/2150463.png"),height: 30,width: 30,),
-            IconButton(onPressed: (){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => SearchPage(),));
-            }, icon: Icon(Icons.search)),
+        appBar:PreferredSize(preferredSize:Size(double.infinity,100), child:Container(
+          height:50,
+          color:Colors.blue.shade200,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal:10),
+            child: Row(
+              mainAxisAlignment:MainAxisAlignment.spaceBetween,
+              children: [
+                Text("News App",style:TextStyle(fontSize:20,color:Colors.white),),
+                IconButton(onPressed: (){
+            Navigator.push(context,MaterialPageRoute(builder: (context) => SearchPage(),));
+                    }, icon: Icon(Icons.search,color:Colors.white,)),
 
-          ],
-        ),
+              ],
+            ),
+          ),
+        )),
         /// drawer
         drawer: Drawer(
+          shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(0)),
           width: 300,
           child: SingleChildScrollView(
             child: Padding(
@@ -92,7 +100,7 @@ class _TabBareState extends State<TabBarPage> with SingleTickerProviderStateMixi
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Darck Mode"),
+                    Text("Dark Mode"),
                     Switch.adaptive(value:context.watch<ThemeProvider>().getNewValue(), onChanged:(value){
                       context.read<ThemeProvider>().setNewValue(value);
                       setState(() {
@@ -284,9 +292,14 @@ class _TabBareState extends State<TabBarPage> with SingleTickerProviderStateMixi
               /// tab
               Container(height: 50,color:isDark?Colors.white38:Colors.black38,
                 child: TabBar(
-                    indicatorPadding: EdgeInsets.all(8),
+                    indicatorPadding: EdgeInsets.all(2),
                     controller:tabController,
-                    indicatorSize:TabBarIndicatorSize.tab,
+                     indicatorSize:TabBarIndicatorSize.tab,
+                   unselectedLabelStyle:TextStyle(fontSize:18,color:Colors.white),
+                   indicator:BoxDecoration(
+                     borderRadius:BorderRadius.circular(5),
+                     gradient:LinearGradient(colors:[Colors.blue.shade200,Colors.white])
+                   ),
                     isScrollable: true,
                     tabAlignment:TabAlignment.start,
                     tabs: [

@@ -6,7 +6,7 @@ import 'package:news_app/doman/coustoms_page.dart';
 import 'package:news_app/ui/bloc/life%20style%20bloc/life_bloc.dart';
 import 'package:news_app/ui/bloc/life%20style%20bloc/life_style_events.dart';
 import 'package:news_app/ui/bloc/life%20style%20bloc/life_style_states.dart';
-import 'package:news_app/ui/trend_detail_page.dart';
+import 'package:news_app/ui/bottom_navi/home/trend_detail_page.dart';
 
 class WebStoryPage extends StatelessWidget{
   @override

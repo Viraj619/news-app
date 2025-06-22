@@ -20,8 +20,8 @@ import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_state.dart';
 import 'package:news_app/ui/bloc/super_hit_bloc/super_hit_bloc.dart';
 import 'package:news_app/ui/bloc/super_hit_bloc/super_hit_news_event.dart';
 import 'package:news_app/ui/bloc/super_hit_bloc/super_hit_states.dart';
-import 'package:news_app/ui/navigation_provider.dart';
-import 'package:news_app/ui/trend_detail_page.dart';
+import 'package:news_app/ui/bottom_navi/home/navigation_provider.dart';
+import 'package:news_app/ui/bottom_navi/home/trend_detail_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePageO extends StatefulWidget{

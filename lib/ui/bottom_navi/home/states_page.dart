@@ -1,24 +1,25 @@
 
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/doman/coustoms_page.dart';
-import 'package:news_app/ui/bloc/life%20style%20bloc/life_bloc.dart';
-import 'package:news_app/ui/bloc/life%20style%20bloc/life_style_events.dart';
-import 'package:news_app/ui/bloc/life%20style%20bloc/life_style_states.dart';
-import 'package:news_app/ui/trend_detail_page.dart';
+import 'package:news_app/ui/bloc/search_bloc/search_events.dart';
+import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_Bloc.dart';
+import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_event.dart';
+import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_state.dart';
+import 'package:news_app/ui/bottom_navi/home/trend_detail_page.dart';
 
-class UtilityPage extends StatelessWidget{
+class StatesPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    context.read<LifeBloc>().add(GetLifeStyle(query:"life style news"));
+    context.read<UttarBloc>().add(GetUttarNews(quiry:"Uttar Pradesh"));
     return Scaffold(
-        body:BlocBuilder<LifeBloc,LifeStyleStates>(builder: (_,state){
-          if(state is LoadingLifeState){
+        body:BlocBuilder<UttarBloc,UttarState>(builder: (_,state){
+          if(state is LoadingUttarState){
             return Center(child: CircularProgressIndicator(),);
           }
-          if(state is LoadedLifeState){
-            var mData=state.LarticlesDataModel;
+          if(state is LoadedUttarState){
+            var mData=state.UarticalDataModel;
             return ListView.builder(
                 itemCount: mData.articles!.length,
                 itemBuilder: (_,index){

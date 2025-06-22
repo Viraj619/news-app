@@ -25,7 +25,7 @@ import 'package:news_app/doman/exceptions.dart';
         throw UnauthorisedException(errorMsg: response.body.toString());
       case 500:
       default:
-        throw FetchException(errorMsg: "Error Occurred while communicating with statesCode ${response.body.toString()}");
+        throw FetchException(errorMsg: "Error Occurred while communicating with statesCode ${response.statusCode.toString()}");
 
     }
   }

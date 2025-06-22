@@ -6,9 +6,9 @@ import 'package:news_app/ui/bloc/life%20style%20bloc/life_bloc.dart';
 import 'package:news_app/ui/bloc/search_bloc/search_bloc.dart';
 import 'package:news_app/ui/bloc/states_bloc/uttar%20pradesh/uttar_Bloc.dart';
 import 'package:news_app/ui/bloc/super_hit_bloc/super_hit_bloc.dart';
-import 'package:news_app/ui/bottom_navigation.dart';
-import 'package:news_app/ui/navigation_provider.dart';
-import 'package:news_app/ui/theme_provider.dart';
+import 'package:news_app/ui/bottom_navi/bottom_navigation.dart';
+import 'package:news_app/ui/bottom_navi/home/navigation_provider.dart';
+import 'package:news_app/ui/bottom_navi/home/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 void main(){
